@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Equipment</title>
+  <style>
+    body {
+      font-family: 'Gill Sans', Calibri, 'Trebuchet MS', sans-serif;
+      background-color: #E2DFD0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+      max-width: 450px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #32012F;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #524C42;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #32012F;
+      color: #E2DFD0;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #F97300;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #32012F;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Add Equipment</h2>
+    <form action="/add_equipment" method="POST">
+      <label for="equipmentName">Equipment Name:</label>
+      <input type="text" id="equipmentName" name="equipmentName" required>
+
+      <label for="description">Description:</label>
+      <input type="text" id="description" name="description" required>
+
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" name="quantity" required min="1">
+
+      <label for="category">Category:</label>
+      <select id="category" name="category" required>
+        <option value="agriculture">Agriculture</option>
+        <option value="construction">Construction</option>
+        <option value="industrial">Industrial</option>
+        <option value="transportation">Transportation</option>
+      </select>
+
+      <label for="status">Status:</label>
+      <select id="status" name="status" required>
+        <option value="Available">Available</option>
+        <option value="Unavailable">Unavailable</option>
+      </select>
+
+      <button type="submit">Add Equipment</button>
+    </form>
+    
+    <a class="back-link" href="{{ url_for('admin_dashboard') }}">← Back to Dashboard</a>
+  </div>
+</body>
+</html>

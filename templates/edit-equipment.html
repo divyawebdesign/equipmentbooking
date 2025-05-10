@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Equipment</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Gill Sans', Calibri, 'Trebuchet MS', sans-serif;
+      background-color: #E2DFD0;
+      color: #524C42;
+    }
+
+    header {
+      background-color: #32012F;
+      padding: 25px;
+      text-align: center;
+      color: #E2DFD0;
+      font-size: 32px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #32012F;
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      font-size: 18px;
+      color: #32012F;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #32012F;
+      color: #E2DFD0;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #F97300;
+    }
+
+    a {
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 25px;
+      background-color: #32012F;
+      color: #E2DFD0;
+      border-radius: 12px;
+      font-size: 18px;
+      transition: background-color 0.3s;
+    }
+
+    a:hover {
+      background-color: #F97300;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Edit Equipment - Admin Dashboard
+  </header>
+
+  <div class="container">
+    <h2>Edit Equipment</h2>
+    <form method="POST">
+      <label for="equipmentName">Equipment Name:</label>
+      <input type="text" id="equipmentName" name="equipmentName" value="{{ equipment[1] }}" required><br><br>
+
+      <label for="description">Description:</label>
+      <input type="text" id="description" name="description" value="{{ equipment[2] }}" required><br><br>
+
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" name="quantity" value="{{ equipment[3] }}" required><br><br>
+
+      <label for="category">Category:</label>
+      <input type="text" id="category" name="category" value="{{ equipment[4] }}" required><br><br>
+
+      <label for="status">Status:</label>
+      <select name="status" id="status" required>
+        <option value="Available" {% if equipment[5] == 'Available' %}selected{% endif %}>Available</option>
+        <option value="Unavailable" {% if equipment[5] == 'Unavailable' %}selected{% endif %}>Unavailable</option>
+      </select><br><br>
+
+      <button type="submit">Update Equipment</button>
+    </form>
+    <br>
+    <a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a>
+  </div>
+
+</body>
+</html>

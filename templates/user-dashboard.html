@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f4f7fb;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #32012F;
+      padding: 40px;
+      text-align: center;
+      color: #ffffff;
+      font-size: 36px;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .notification {
+      background-color: #f3f3f3;
+      padding: 20px;
+      text-align: center;
+      font-size: 18px;
+      color: #444;
+      border-bottom: 2px solid #ccc;
+      margin-top: 20px;
+      font-weight: 500;
+    }
+    .categories {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+    .category-btn {
+      background-color: #32012F;
+      color: #ffffff;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .category-btn:hover,
+    .category-btn.active {
+      background-color: #F97300;
+      transform: translateY(-3px);
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px;
+    }
+    .grid {
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .grid.active {
+      display: grid;
+    }
+    .card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+    .card-content {
+      padding: 20px;
+    }
+    .card-content h3 {
+      margin: 0 0 15px;
+      font-size: 22px;
+      color: #32012F;
+    }
+    .card-content p {
+      font-size: 16px;
+      margin: 5px 0;
+    }
+    .rent {
+      color: #F97300;
+      font-weight: bold;
+    }
+    .availability {
+      font-weight: bold;
+    }
+    .availability.available {
+      color: green;
+    }
+    .availability.unavailable {
+      color: red;
+    }
+    .book-btn {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #32012F;
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .book-btn:hover {
+      background-color: #F97300;
+      transform: translateY(-3px);
+    }
+    .book-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      header { font-size: 28px; }
+      .notification { font-size: 16px; }
+      .category-btn { padding: 12px 25px; font-size: 16px; }
+      .card-content h3 { font-size: 20px; }
+      .book-btn { font-size: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      header { font-size: 24px; }
+      .category-btn { padding: 10px 20px; font-size: 14px; }
+      .card-content h3 { font-size: 18px; }
+      .book-btn { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    User Dashboard - Equipment Booking
+  </header>
+
+  <div class="notification">
+    Welcome, <span id="user-name">{{ username }}</span>! Select a category to see available equipment.
+  </div>
+
+  <div class="categories">
+    <button class="category-btn" onclick="filterCategory('agriculture')">Agriculture</button>
+    <button class="category-btn" onclick="filterCategory('construction')">Construction</button>
+    <button class="category-btn" onclick="filterCategory('industrial')">Industrial</button>
+    <button class="category-btn" onclick="filterCategory('transportation')">Transportation</button>
+    <button class="category-btn" onclick="filterCategory('all')">All</button>
+  </div>
+
+  <div class="container">
+    {% set categories = ['agriculture', 'construction', 'industrial', 'transportation'] %}
+    {% for cat in categories %}
+    <div class="grid {{ cat }} {% if selected_category == cat %}active{% endif %}">
+      {% for eq in equipment_list %}
+        {% if eq[4]|lower == cat %}
+        <div class="card">
+          <div class="card-content">
+            <h3>{{ eq[1] }}</h3>
+            <p>{{ eq[2] }}</p>
+            <p class="rent">Quantity: {{ eq[3] }}</p>
+            <p class="availability {{ 'available' if eq[5]|lower == 'available' else 'unavailable' }}">{{ eq[5] }}</p>
+
+            <button class="book-btn" onclick="showConfirmation(event, '{{ eq[0] }}', '{{ user_id }}')" {% if eq[5]|lower != 'available' %}disabled{% endif %}>Book Now</button>
+
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div class="grid all {% if selected_category == 'all' %}active{% endif %}">
+      {% for eq in equipment_list %}
+      <div class="card">
+        <div class="card-content">
+          <h3>{{ eq[1] }}</h3>
+          <p>{{ eq[2] }}</p>
+          <p class="rent">Quantity: {{ eq[3] }}</p>
+          <p class="availability {{ 'available' if eq[5]|lower == 'available' else 'unavailable' }}">{{ eq[5] }}</p>
+
+          <button class="book-btn" onclick="showConfirmation(event, '{{ eq[0] }}', '{{ user_id }}')" {% if eq[5]|lower != 'available' %}disabled{% endif %}>Book Now</button>
+
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script>
+    function filterCategory(category) {
+      document.querySelectorAll('.grid').forEach(grid => grid.classList.remove('active'));
+      const selectedGrid = document.querySelector(`.grid.${category}`);
+      if (selectedGrid) selectedGrid.classList.add('active');
+    }
+
+    window.onload = () => {
+      const selected = "{{ selected_category }}";
+      if (selected) filterCategory(selected);
+      else filterCategory("all");
+    }
+
+    // Function to show confirmation popup before booking
+    function showConfirmation(event, equipmentId, userId) {
+  if (confirm("Are you sure you want to book this equipment?")) {
+    // Create the form data to send to the server
+    const formData = new FormData();
+    formData.append('equipment_id', equipmentId);
+    formData.append('user_id', userId);
+
+    // Use fetch to submit the form via POST
+    fetch('/book_equipment', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+      // Show a success popup after booking
+      alert("Booking request submitted successfully!");
+      // Optionally, refresh the page or update the equipment availability here
+      location.reload(); // This will refresh the page to reflect changes
+    })
+    .catch(error => {
+      alert("Error occurred while booking. Please try again.");
+      console.error("Error booking equipment:", error);
+    });
+  }
+}
+
+  </script>
+
+</body>
+</html>

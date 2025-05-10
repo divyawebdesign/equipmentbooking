@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Signup</title>
+  <style>
+    body {
+      font-family: 'Gill Sans', Calibri, 'Trebuchet MS', sans-serif;
+      background-color: #E2DFD0;
+      color: #524C42;
+      margin: 0;
+      height: 100vh;
+      position: relative;
+    }
+
+    .signup-container {
+      background-color: #fff;
+      padding: 40px 50px;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      width: 320px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .signup-container h2 {
+      margin-bottom: 30px;
+      color: #32012F;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #32012F;
+      color: #E2DFD0;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #F97300;
+    }
+
+    .login-link {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .login-link a {
+      color: #F97300;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>User Signup</h2>
+    <form action="/user_signup" method="POST">
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <input type="password" name="confirmPassword" placeholder="Confirm Password" required />
+      <input type="tel" name="phone" placeholder="Phone Number" required />
+      <select name="gender" required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+        <option value="other">Other</option>
+      </select>
+      <input type="submit" value="Sign Up" />
+    </form>
+    <div class="login-link">
+        Already have an account? <a href="user_login.html">Login</a>
+      </div>
+  </div>
+</body>
+</html>

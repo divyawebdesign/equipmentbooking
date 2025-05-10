@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Delete Equipment</title>
+  <style>
+    body {
+      font-family: 'Gill Sans', Calibri, 'Trebuchet MS', sans-serif;
+      background-color: #E2DFD0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #32012F;
+      margin-bottom: 30px;
+    }
+
+    .equipment-list {
+      margin-bottom: 30px;
+    }
+
+    .equipment-item {
+      background-color: #f8f8f8;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .equipment-item h3 {
+      color: #524C42;
+      font-size: 18px;
+    }
+
+    .equipment-item p {
+      color: #524C42;
+      font-size: 14px;
+    }
+
+    .delete-btn {
+      background-color: #F97300;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .delete-btn:hover {
+      background-color: #D45D00;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #32012F;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Delete Equipment</h2>
+
+    <div class="equipment-list">
+      {% for equipment in equipment_list %}
+      <div class="equipment-item">
+        <div>
+          <h3>{{ equipment[1] }}</h3>
+          <p>{{ equipment[2] }}</p>
+        </div>
+        <form action="/delete_equipment" method="POST">
+          <input type="hidden" name="equipment_id" value="{{ equipment[0] }}">
+          <button type="submit" class="delete-btn">−</button>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+
+    <a class="back-link" href="{{ url_for('admin_dashboard') }}">← Back to Dashboard</a>
+  </div>
+</body>
+</html>

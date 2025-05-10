@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Gill Sans', Calibri, 'Trebuchet MS', sans-serif;
+      background-color: #E2DFD0;
+      color: #524C42;
+    }
+
+    header {
+      background-color: #32012F;
+      padding: 25px;
+      text-align: center;
+      color: #E2DFD0;
+      font-size: 32px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .dashboard {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      margin-bottom: 50px;
+    }
+
+    .stat-card {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .stat-card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #32012F;
+    }
+
+    .stat-card p {
+      font-size: 28px;
+      font-weight: bold;
+      color: #F97300;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      justify-items: center;
+      margin-bottom: 50px;
+    }
+
+    .dashboard-button {
+      background-color: #32012F;
+      color: #E2DFD0;
+      padding: 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 100%;
+      max-width: 220px;
+      text-align: center;
+    }
+
+    .dashboard-button:hover {
+      background-color: #F97300;
+    }
+
+    .about-section {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-section h2 {
+      color: #32012F;
+      margin-bottom: 20px;
+    }
+
+    .about-section p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Welcome, {{ admin_name }}! | Admin Dashboard
+  </header>
+
+  <div class="dashboard">
+
+    <!-- Action Buttons -->
+    <div class="button-grid">
+      <button class="dashboard-button" onclick="location.href='/add_equipment'">Add Equipment</button>
+      <button class="dashboard-button" onclick="location.href='/delete_equipment'">Delete Equipment</button>
+      <button class="dashboard-button" onclick="location.href='/view_bookings'">View Bookings</button>
+      <button class="dashboard-button" onclick="location.href='/update_equipment'">Update Equipment</button>
+      <button class="dashboard-button" onclick="location.href='/manage_users'">Manage Users</button>
+    </div>
+
+    <!-- About Section -->
+    <div class="about-section">
+      <h2>About the Equipment Booking System</h2>
+      <p>
+        This dashboard is designed to help administrators manage equipment reservations within an organization.
+        You can quickly add, delete, view, or update equipment records, monitor bookings, and manage user access.
+        The system ensures that resources are used efficiently, reduces manual paperwork, and gives you full control
+        over organizational assets.
+      </p>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Update Equipment</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Gill Sans', Calibri, 'Trebuchet MS', sans-serif;
+      background-color: #E2DFD0;
+      color: #524C42;
+    }
+
+    header {
+      background-color: #32012F;
+      padding: 25px;
+      text-align: center;
+      color: #E2DFD0;
+      font-size: 32px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .equipment-list {
+      list-style-type: none;
+      padding: 0;
+      margin-bottom: 50px;
+    }
+
+    .equipment-item {
+      background-color: #fff;
+      margin: 10px 0;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .equipment-details {
+      font-size: 18px;
+      color: #32012F;
+    }
+
+    .equipment-actions a {
+      text-decoration: none;
+      padding: 8px 16px;
+      background-color: #32012F;
+      color: #E2DFD0;
+      border-radius: 12px;
+      transition: background-color 0.3s;
+    }
+
+    .equipment-actions a:hover {
+      background-color: #F97300;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 25px;
+      background-color: #32012F;
+      color: #E2DFD0;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 18px;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: #F97300;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Update Equipment - Admin Dashboard
+  </header>
+
+  <div class="container">
+    <h2>Update Equipment</h2>
+    <ul class="equipment-list">
+      {% for equipment in equipment_list %}
+        <li class="equipment-item">
+          <div class="equipment-details">
+            <strong>{{ equipment[1] }}</strong><br>
+            {{ equipment[2] }} <!-- Assuming equipment name is at index 1 and description is at index 2 -->
+          </div>
+          <div class="equipment-actions">
+            <a href="{{ url_for('edit_equipment', equipment_id=equipment[0]) }}">Edit</a> <!-- Assuming equipment ID is at index 0 -->
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('admin_dashboard') }}" class="back-btn">Back to Dashboard</a>
+  </div>
+
+</body>
+</html>
